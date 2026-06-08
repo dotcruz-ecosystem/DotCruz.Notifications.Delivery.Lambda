@@ -1,6 +1,7 @@
 using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.Lambda.SQSEvents;
+using Amazon.SimpleSystemsManagement;
 using DotCruz.Notifications.Delivery.Lambda.Interfaces;
 using DotCruz.Notifications.Delivery.Lambda.Serialization;
 using DotCruz.Notifications.Delivery.Lambda.Services;
@@ -31,6 +32,9 @@ public class Program
 
         services.AddLogging();
         services.AddSingleton<HttpClient>();
+
+        services.AddSingleton<IAmazonSimpleSystemsManagement, AmazonSimpleSystemsManagementClient>();
+        services.AddSingleton<ISmtpConfigProvider, SmtpConfigProvider>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 

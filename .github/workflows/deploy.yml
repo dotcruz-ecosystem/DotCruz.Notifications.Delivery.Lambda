@@ -31,4 +31,4 @@ jobs:
     - name: Deploy Function
       working-directory: src/DotCruz.Notifications.Delivery.Lambda
       run: |
-        dotnet lambda deploy-function notification-delivery-handler
+        dotnet lambda deploy-function notification-delivery-handler-prod

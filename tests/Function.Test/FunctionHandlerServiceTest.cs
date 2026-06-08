@@ -26,7 +26,7 @@ public class FunctionHandlerServiceTest
         var mediatorMock = mediatorBuilder.GetMock();
         var sut = CreateSut(mediatorBuilder.Build());
 
-        var payload = new NotificationPayloadBuilder().Build();
+        var payload = new NotificationPayloadBuilder().WithTenantId(Guid.NewGuid()).Build();
         var messageBody = JsonSerializer.Serialize(payload, LambdaJsonSerializerContext.Default.NotificationPayload);
 
         var sqsEvent = new SQSEvent
@@ -49,7 +49,8 @@ public class FunctionHandlerServiceTest
                 c.Payload.Type == payload.Type &&
                 c.Payload.Recipient == payload.Recipient &&
                 c.Payload.Title == payload.Title &&
-                c.Payload.Body == payload.Body
+                c.Payload.Body == payload.Body &&
+                c.Payload.TenantId == payload.TenantId
             ), 
             It.IsAny<CancellationToken>()
         ), Times.Once);

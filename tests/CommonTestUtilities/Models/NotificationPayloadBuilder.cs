@@ -10,6 +10,7 @@ public class NotificationPayloadBuilder
     private string _recipient;
     private string _title;
     private string _body;
+    private Guid? _tenantId;
 
     public NotificationPayloadBuilder()
     {
@@ -19,6 +20,7 @@ public class NotificationPayloadBuilder
         _recipient = faker.Person.Email;
         _title = faker.Lorem.Sentence();
         _body = faker.Lorem.Paragraph();
+        _tenantId = null;
     }
 
     public NotificationPayloadBuilder WithNotificationId(Guid id)
@@ -51,6 +53,12 @@ public class NotificationPayloadBuilder
         return this;
     }
 
+    public NotificationPayloadBuilder WithTenantId(Guid? tenantId)
+    {
+        _tenantId = tenantId;
+        return this;
+    }
+
     public NotificationPayload Build()
     {
         return new NotificationPayload
@@ -59,7 +67,8 @@ public class NotificationPayloadBuilder
             Type = _type,
             Recipient = _recipient,
             Title = _title,
-            Body = _body
+            Body = _body,
+            TenantId = _tenantId
         };
     }
 }
