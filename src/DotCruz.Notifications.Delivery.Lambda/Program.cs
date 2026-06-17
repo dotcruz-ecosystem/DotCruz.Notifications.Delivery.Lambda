@@ -48,7 +48,9 @@ public class Program
                 ?? throw new InvalidOperationException("NOTIFICATIONS_API_URL env variable is not set.");
             client.BaseAddress = new Uri(apiUrl);
 
-            client.DefaultRequestHeaders.Add("X-Api-Key", Environment.GetEnvironmentVariable("NOTIFICATIONS_API_KEY"));
+            var apiKey = Environment.GetEnvironmentVariable("DOT_CRUZ_API_KEY")
+                ?? throw new InvalidOperationException("DOT_CRUZ_API_KEY env variable is not set.");
+            client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
         });
 
         services.AddTransient<FunctionHandlerService>();
