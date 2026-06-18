@@ -15,7 +15,7 @@
     <PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="2.1.1" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="3.0.0" />
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="3.0.0" />
-    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="4.0.8.3" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="4.0.8.6" />
     <PackageReference Include="MailKit" Version="4.17.0" />
     <PackageReference Include="MediatR" Version="14.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
