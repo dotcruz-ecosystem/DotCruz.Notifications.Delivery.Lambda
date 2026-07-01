@@ -56,6 +56,7 @@ public class Program
 
             var apiKey = GetEnvironmentVariable("DOT_CRUZ_API_KEY", "NOTIFICATIONS_API_KEY");
             client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+            client.Timeout = TimeSpan.FromSeconds(10);
         });
 
         services.AddTransient<FunctionHandlerService>();

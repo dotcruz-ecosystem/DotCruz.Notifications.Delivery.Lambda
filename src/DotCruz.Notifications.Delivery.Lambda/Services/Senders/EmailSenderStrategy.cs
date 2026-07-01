@@ -57,7 +57,9 @@ public class EmailSenderStrategy : INotificationSenderStrategy
         email.Body = bodyBuilder.ToMessageBody();
 
         using var client = new SmtpClient();
-        await client.ConnectAsync(host, port, false, cancellationToken);
+        client.Timeout = 10000;
+        bool useSsl = port == 465;
+        await client.ConnectAsync(host, port, useSsl, cancellationToken);
         await client.AuthenticateAsync(username, password, cancellationToken);
         await client.SendAsync(email, cancellationToken);
         await client.DisconnectAsync(true, cancellationToken);
