@@ -2,7 +2,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using DotCruz.Notifications.Delivery.Lambda.Serialization;
 using DotCruz.Notifications.Delivery.Lambda.UseCases.ProcessNotification;
-using MediatR;
+using Mediator;
 using System.Text.Json;
 using DotCruz.Notifications.Delivery.Lambda.Models;
 

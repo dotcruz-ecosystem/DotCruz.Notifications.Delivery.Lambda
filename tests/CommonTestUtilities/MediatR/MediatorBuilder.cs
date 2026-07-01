@@ -1,5 +1,5 @@
 using Moq;
-using MediatR;
+using Mediator;
 
 namespace CommonTestUtilities.MediatR;
 

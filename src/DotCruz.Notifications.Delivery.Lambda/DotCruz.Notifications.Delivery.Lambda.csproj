@@ -18,7 +18,12 @@
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="3.0.0" />
     <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="4.0.100" />
     <PackageReference Include="MailKit" Version="4.17.0" />
-    <PackageReference Include="MediatR" Version="14.1.0" />
+    <PackageReference Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageReference Include="Mediator.SourceGenerator" Version="3.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.9" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.9" />

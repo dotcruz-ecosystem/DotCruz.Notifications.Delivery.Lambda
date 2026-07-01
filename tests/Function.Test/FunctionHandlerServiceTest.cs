@@ -5,7 +5,7 @@ using CommonTestUtilities.Models;
 using DotCruz.Notifications.Delivery.Lambda;
 using DotCruz.Notifications.Delivery.Lambda.Serialization;
 using DotCruz.Notifications.Delivery.Lambda.UseCases.ProcessNotification;
-using MediatR;
+using Mediator;
 using Moq;
 using System.Text.Json;
 

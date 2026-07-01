@@ -1,5 +1,5 @@
 using DotCruz.Notifications.Delivery.Lambda.Interfaces;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Logging;
 
 namespace DotCruz.Notifications.Delivery.Lambda.UseCases.ProcessNotification;
@@ -20,7 +20,7 @@ public class ProcessNotificationCommandHandler : IRequestHandler<ProcessNotifica
         _logger = logger;
     }
 
-    public async Task Handle(ProcessNotificationCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(ProcessNotificationCommand request, CancellationToken cancellationToken)
     {
         var notification = request.Payload;
 
@@ -53,5 +53,7 @@ public class ProcessNotificationCommandHandler : IRequestHandler<ProcessNotifica
         {
             _logger.LogError(ex, "Failed to send status callback to VPS for notification {NotificationId}", notification.NotificationId);
         }
+
+        return Unit.Value;
     }
 }

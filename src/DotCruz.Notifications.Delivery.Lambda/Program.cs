@@ -36,7 +36,7 @@ public class Program
         services.AddSingleton<IAmazonSimpleSystemsManagement, AmazonSimpleSystemsManagementClient>();
         services.AddSingleton<ISmtpConfigProvider, SmtpConfigProvider>();
 
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+        services.AddMediator();
 
         services.AddTransient<INotificationSenderStrategy, EmailSenderStrategy>();
         services.AddTransient<INotificationSenderStrategy, SmsSenderStrategy>();

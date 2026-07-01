@@ -1,5 +1,5 @@
 using DotCruz.Notifications.Delivery.Lambda.Models;
-using MediatR;
+using Mediator;
 
 namespace DotCruz.Notifications.Delivery.Lambda.UseCases.ProcessNotification;
 
