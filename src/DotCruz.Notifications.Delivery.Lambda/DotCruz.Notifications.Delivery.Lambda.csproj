@@ -8,6 +8,7 @@
     <PublishAot>true</PublishAot>
     <OutputType>Exe</OutputType>
     <AssemblyName>bootstrap</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
     <AWSFileType>custom</AWSFileType>
   </PropertyGroup>
 
