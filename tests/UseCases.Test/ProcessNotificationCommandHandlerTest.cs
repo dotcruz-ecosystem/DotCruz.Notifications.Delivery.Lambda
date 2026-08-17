@@ -61,6 +61,7 @@ public class ProcessNotificationCommandHandlerTest
 
         clientMock.Verify(c => c.UpdateStatusAsync(
             payload.NotificationId,
+            payload.TenantId,
             true,
             null,
             It.IsAny<CancellationToken>()
@@ -98,6 +99,7 @@ public class ProcessNotificationCommandHandlerTest
         senderMock.Verify(s => s.SendAsync(payload, It.IsAny<CancellationToken>()), Times.Once);
         clientMock.Verify(c => c.UpdateStatusAsync(
             payload.NotificationId,
+            payload.TenantId,
             false,
             expectedException.Message,
             It.IsAny<CancellationToken>()
@@ -133,6 +135,7 @@ public class ProcessNotificationCommandHandlerTest
         // Assert
         clientMock.Verify(c => c.UpdateStatusAsync(
             payload.NotificationId,
+            payload.TenantId,
             false,
             It.Is<string>(s => s.Contains($"Notification type '{randomType}' is not supported.")),
             It.IsAny<CancellationToken>()

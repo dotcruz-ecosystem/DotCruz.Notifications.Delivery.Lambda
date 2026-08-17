@@ -19,6 +19,7 @@ public class NotificationClientBuilder
     {
         _client.Setup(c => c.UpdateStatusAsync(
             It.IsAny<Guid>(), 
+            It.IsAny<Guid?>(), 
             It.IsAny<bool>(), 
             It.IsAny<string?>(), 
             It.IsAny<CancellationToken>()
@@ -30,6 +31,7 @@ public class NotificationClientBuilder
     {
         _client.Setup(c => c.UpdateStatusAsync(
             It.IsAny<Guid>(), 
+            It.IsAny<Guid?>(), 
             It.IsAny<bool>(), 
             It.IsAny<string?>(), 
             It.IsAny<CancellationToken>()
