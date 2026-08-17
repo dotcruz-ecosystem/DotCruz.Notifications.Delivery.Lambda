@@ -6,5 +6,5 @@ namespace DotCruz.Notifications.Delivery.Lambda.Interfaces;
 
 public interface INotificationClient
 {
-    Task UpdateStatusAsync(Guid notificationId, bool success, string? errorMessage, CancellationToken cancellationToken = default);
+    Task UpdateStatusAsync(Guid notificationId, Guid? tenantId, bool success, string? errorMessage, CancellationToken cancellationToken = default);
 }

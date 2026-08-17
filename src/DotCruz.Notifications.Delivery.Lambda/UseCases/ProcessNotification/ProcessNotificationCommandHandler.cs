@@ -46,7 +46,7 @@ public class ProcessNotificationCommandHandler : IRequestHandler<ProcessNotifica
 
         try
         {
-            await _notificationClient.UpdateStatusAsync(notification.NotificationId, success, errorMessage, cancellationToken);
+            await _notificationClient.UpdateStatusAsync(notification.NotificationId, notification.TenantId, success, errorMessage, cancellationToken);
             _logger.LogInformation("Callback successfully completed for notification {NotificationId}", notification.NotificationId);
         }
         catch (Exception ex)

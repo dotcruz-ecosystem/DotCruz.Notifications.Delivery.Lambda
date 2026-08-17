@@ -14,17 +14,21 @@ public class NotificationClient : INotificationClient
         _httpClient = httpClient;
     }
 
-    public async Task UpdateStatusAsync(Guid notificationId, bool success, string? errorMessage, CancellationToken cancellationToken = default)
+    public async Task UpdateStatusAsync(Guid notificationId, Guid? tenantId, bool success, string? errorMessage, CancellationToken cancellationToken = default)
     {
         var statusModel = new UpdateStatusRequest { Success = success, ErrorMessage = errorMessage };
 
         var path = $"api/Notification/{notificationId}/status";
-        var response = await _httpClient.PatchAsJsonAsync(
-            path, 
-            statusModel, 
-            LambdaJsonSerializerContext.Default.UpdateStatusRequest, 
-            cancellationToken
-        );
+
+        using var request = new HttpRequestMessage(HttpMethod.Patch, path)
+        {
+            Content = JsonContent.Create(statusModel, LambdaJsonSerializerContext.Default.UpdateStatusRequest)
+        };
+
+        if (tenantId.HasValue && tenantId.Value != Guid.Empty)
+            request.Headers.Add("X-Tenant-ID", tenantId.Value.ToString());
+
+        var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
     }
 }
