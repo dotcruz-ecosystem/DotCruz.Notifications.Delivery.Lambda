@@ -57,9 +57,16 @@ public class EmailSenderStrategy : INotificationSenderStrategy
         email.Body = bodyBuilder.ToMessageBody();
 
         using var client = new SmtpClient();
-        client.Timeout = 10000;
-        bool useSsl = port == 465;
-        await client.ConnectAsync(host, port, useSsl, cancellationToken);
+        client.Timeout = 15000;
+
+        var socketOptions = port switch
+        {
+            465 => MailKit.Security.SecureSocketOptions.SslOnConnect,
+            587 => MailKit.Security.SecureSocketOptions.StartTls,
+            _ => MailKit.Security.SecureSocketOptions.Auto
+        };
+
+        await client.ConnectAsync(host, port, socketOptions, cancellationToken);
         await client.AuthenticateAsync(username, password, cancellationToken);
         await client.SendAsync(email, cancellationToken);
         await client.DisconnectAsync(true, cancellationToken);

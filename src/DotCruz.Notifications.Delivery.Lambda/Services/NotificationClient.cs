@@ -18,8 +18,9 @@ public class NotificationClient : INotificationClient
     {
         var statusModel = new UpdateStatusRequest { Success = success, ErrorMessage = errorMessage };
 
+        var path = $"api/Notification/{notificationId}/status";
         var response = await _httpClient.PatchAsJsonAsync(
-            $"notifications/{notificationId}/status", 
+            path, 
             statusModel, 
             LambdaJsonSerializerContext.Default.UpdateStatusRequest, 
             cancellationToken

@@ -6,8 +6,11 @@ using DotCruz.Notifications.Delivery.Lambda.Interfaces;
 using DotCruz.Notifications.Delivery.Lambda.Serialization;
 using DotCruz.Notifications.Delivery.Lambda.Services;
 using DotCruz.Notifications.Delivery.Lambda.Services.Senders;
+using DotCruz.Shared.Security.Authentication.ApiKey;
+using DotCruz.Shared.Security.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace DotCruz.Notifications.Delivery.Lambda;
 
@@ -43,6 +46,19 @@ public class Program
         services.AddTransient<INotificationSenderStrategy, SmsSenderStrategy>();
         services.AddTransient<INotificationSenderStrategy, PushSenderStrategy>();
 
+        var serviceName = GetOptionalEnvironmentVariable("SERVICE_AUTH_NAME") ?? "NotificationsDeliveryLambda";
+        var apiKey = GetEnvironmentVariable("SERVICE_AUTH_KEY", "DOT_CRUZ_API_KEY", "NOTIFICATIONS_API_KEY");
+
+        services.Configure<ServiceAuthSelfOptions>(options =>
+        {
+            options.Name = serviceName;
+            options.Key = apiKey;
+        });
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<ISecurityContext, SecurityContext>();
+        services.AddTransient<ServiceApiKeyHttpClientHandler>();
+
         services.AddHttpClient<INotificationClient, NotificationClient>(client =>
         {
             var apiUrl = GetEnvironmentVariable("NOTIFICATIONS_API_URL");
@@ -53,23 +69,25 @@ public class Program
             }
             
             client.BaseAddress = uri;
-
-            var apiKey = GetEnvironmentVariable("DOT_CRUZ_API_KEY", "NOTIFICATIONS_API_KEY");
-            client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
             client.Timeout = TimeSpan.FromSeconds(10);
-        });
+        })
+        .AddServiceApiKeyPropagation();
 
         services.AddTransient<FunctionHandlerService>();
 
         return services.BuildServiceProvider();
     }
 
-    private static string GetEnvironmentVariable(string name, string? fallbackName = null)
+    private static string GetEnvironmentVariable(string name, string? fallbackName = null, string? secondaryFallbackName = null)
     {
         var value = Environment.GetEnvironmentVariable(name);
         if (string.IsNullOrWhiteSpace(value) && fallbackName != null)
         {
             value = Environment.GetEnvironmentVariable(fallbackName);
+        }
+        if (string.IsNullOrWhiteSpace(value) && secondaryFallbackName != null)
+        {
+            value = Environment.GetEnvironmentVariable(secondaryFallbackName);
         }
 
         if (string.IsNullOrWhiteSpace(value))
@@ -81,5 +99,16 @@ public class Program
         }
 
         return value.Trim().Trim('"').Trim('\'');
+    }
+
+    private static string? GetOptionalEnvironmentVariable(string name, string? fallbackName = null)
+    {
+        var value = Environment.GetEnvironmentVariable(name);
+        if (string.IsNullOrWhiteSpace(value) && fallbackName != null)
+        {
+            value = Environment.GetEnvironmentVariable(fallbackName);
+        }
+
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim().Trim('"').Trim('\'');
     }
 }
