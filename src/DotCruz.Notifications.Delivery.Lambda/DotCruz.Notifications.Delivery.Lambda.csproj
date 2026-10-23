@@ -17,8 +17,7 @@
     <PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="2.2.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="3.0.1" />
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="3.0.1" />
-    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="4.0.103.8" />
-    <PackageReference Include="DotCruz.Shared.Security" Version="1.0.8" />
+    <PackageReference Include="DotCruz.Shared.Security" Version="2.0.0" />
     <PackageReference Include="MailKit" Version="4.17.0" />
     <PackageReference Include="Mediator.Abstractions" Version="3.0.2" />
     <PackageReference Include="Mediator.SourceGenerator" Version="3.0.2">

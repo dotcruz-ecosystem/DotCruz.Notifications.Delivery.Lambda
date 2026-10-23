@@ -8,7 +8,6 @@ namespace DotCruz.Notifications.Delivery.Lambda.Serialization;
 [JsonSerializable(typeof(NotificationPayload))]
 [JsonSerializable(typeof(NotificationType))]
 [JsonSerializable(typeof(UpdateStatusRequest))]
-[JsonSerializable(typeof(SmtpCredentials))]
 public partial class LambdaJsonSerializerContext : JsonSerializerContext
 {
 }

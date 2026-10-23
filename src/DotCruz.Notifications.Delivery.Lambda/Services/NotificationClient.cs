@@ -26,7 +26,10 @@ public class NotificationClient : INotificationClient
         };
 
         if (tenantId.HasValue && tenantId.Value != Guid.Empty)
+        {
+            request.Headers.Add("X-Workspace-ID", tenantId.Value.ToString());
             request.Headers.Add("X-Tenant-ID", tenantId.Value.ToString());
+        }
 
         var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

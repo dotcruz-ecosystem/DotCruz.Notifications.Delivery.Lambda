@@ -1,6 +1,11 @@
 # DotCruz.Notifications.Delivery.Lambda
 
-Este repositório contém o worker de entrega de notificações *serverless* para o ecossistema **DotCruz**. É uma função AWS Lambda disparada por filas Amazon SQS, desenvolvida em **.NET 10.0** e compilada com **Native AOT** para garantir baixíssima latência e tempos de inicialização (*cold starts*) mínimos.
+> [!WARNING]
+> **PROJETO DESCONTINUADO / ARQUIVADO (AWS EXIT - ADR-014)**
+> Este componente AWS Lambda foi formalmente substituído pelo **`DotCruz.Notifications.Worker`**, rodando em container Docker on-premises na rede `dotcruz_net` e consumindo mensagens via **RabbitMQ + MassTransit**.
+> Para detalhes completos da migração e arquitetura, consulte a `ADR-014-notifications-rabbitmq-worker-aws-exit` no `DotCruz.Vault` e o projeto `DotCruz.Notifications.Worker` em `DotCruz.Notifications`.
+
+Este repositório contém o antigo worker de entrega de notificações *serverless* para o ecossistema **DotCruz**. Mantido exclusivamente para fins de histórico e consulta de implementação anterior.
 
 ---
 

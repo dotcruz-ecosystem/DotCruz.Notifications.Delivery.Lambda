@@ -46,5 +46,11 @@ public class NotificationPayload
     public string Recipient { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Body { get; set; } = string.Empty;
+    private Guid? _workspaceId;
+    public Guid? WorkspaceId 
+    { 
+        get => _workspaceId ?? TenantId; 
+        set => _workspaceId = value; 
+    }
     public Guid? TenantId { get; set; }
 }
